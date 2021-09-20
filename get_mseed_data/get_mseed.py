@@ -5,7 +5,7 @@ from obspy.clients.filesystem.sds import Client as clientArchive
 from obspy.clients.fdsn import Client as clientFDSN 
 import logging
 
-logger=logging.getLogger('connect_to_server_log')
+logger=logging.getLogger('get_mseed')
 
 SECONDS_IN_DAY = 86400
 
