@@ -7,3 +7,7 @@ This code allows to choose between different MSEED servers (ARCLINK, SEEDLINK, A
 ```bash
 $ pip install get_mseed_data
 ```
+
+# How to call it
+
+Define a json file with the information of the servers. Create a dictionary using get_mseed_utils. See the test_get_mseed.py for references. 
