@@ -1,0 +1,5 @@
+{ 
+"ANGU":{ "net":"EC", "cod":"ANGU", "loc":[""], "cha":["HHZ"]},
+"BMAS":{ "net":"EC", "cod":"BMAS", "loc":[""], "cha":["BHZ"]},
+"BNAS":{ "net":"EC", "cod":"BNAS", "loc":[""], "cha":["BHZ"]}
+}
