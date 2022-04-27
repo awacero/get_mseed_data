@@ -3,7 +3,8 @@ from get_mseed_data import get_mseed_utils as gmutils
 from obspy import UTCDateTime
 
 
-mseed_client_id="FDSN"
+#mseed_client_id="FDSN"
+mseed_client_id = "ARCLINK"
 mseed_server_config_file = "./mseed_server_info.json"
 
 start_time = UTCDateTime("2016-04-16 23:58:00" )

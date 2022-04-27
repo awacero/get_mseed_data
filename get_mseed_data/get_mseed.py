@@ -1,5 +1,12 @@
 
-from obspy.clients.arclink import Client as clientArclink
+try:
+
+    from obspy.clients.arclink import Client as clientArclink
+    arclink_client = True
+except Exception as e:
+    arclink_client = False
+    print("ERROR. CLIENT ARCLINK NO AVAILABLE")
+
 from obspy.clients.seedlink import Client as clientSeedlink
 from obspy.clients.filesystem.sds import Client as clientArchive
 from obspy.clients.fdsn import Client as clientFDSN 
@@ -20,14 +27,18 @@ def choose_service(server_parameter_dict):
     '''
     logger.info("start choose_service")
     if server_parameter_dict['name'] == 'ARCLINK':
-        try:
-            logger.info("Trying  Arclink : %s %s %s" %(server_parameter_dict['user'],server_parameter_dict['server_ip'],server_parameter_dict['port']) )
-            return clientArclink(server_parameter_dict['user'],server_parameter_dict['server_ip'],int(server_parameter_dict['port']), timeout=66 )
-        except Exception as e:
-            exception_message = "Error Arclink %s -- %s %s %s" %(str(e), server_parameter_dict['user'],server_parameter_dict['server_ip'],server_parameter_dict['port'])
-            logger.fatal(exception_message)
-            raise Exception(exception_message )
-            
+        if arclink_client:
+            try:
+                logger.info("Trying  Arclink : %s %s %s" %(server_parameter_dict['user'],server_parameter_dict['server_ip'],server_parameter_dict['port']) )
+                return clientArclink(server_parameter_dict['user'],server_parameter_dict['server_ip'],int(server_parameter_dict['port']), timeout=66 )
+            except Exception as e:
+                exception_message = "Error Arclink %s -- %s %s %s" %(str(e), server_parameter_dict['user'],server_parameter_dict['server_ip'],server_parameter_dict['port'])
+                logger.fatal(exception_message)
+                raise Exception(exception_message )
+        else:
+            logger.fatal("ARCLINK DEPRECATED IN LATEST OBSPY VERSION")
+            raise Exception("ARCLINK DEPRECATED IN LATEST OBSPY VERSION")
+
     elif server_parameter_dict['name'] == 'SEEDLINK':
         try:
             logger.info("Trying  Seedlink : %s %s" %(server_parameter_dict['server_ip'],server_parameter_dict['port']) )
