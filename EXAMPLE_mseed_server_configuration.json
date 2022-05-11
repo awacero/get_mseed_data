@@ -19,7 +19,7 @@
     },
     "ARCHIVE":{
         "name":"ARCHIVE",
-        "archive_path":"/PATH_SC3_ARCHIVE"
+        "archive_path":"/PATH_SC3_ARCHIVE or //samba_share_in_windows/"
     }
 
 }

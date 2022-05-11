@@ -1,17 +1,20 @@
 
-try:
 
+from pathlib import Path
+"""Workaround due to arclink deprecation"""
+try:
     from obspy.clients.arclink import Client as clientArclink
     arclink_client = True
 except Exception as e:
     arclink_client = False
-    print("ERROR. CLIENT ARCLINK NO AVAILABLE")
+    print("WARNING. CLIENT ARCLINK NO AVAILABLE")
 
 from obspy.clients.seedlink import Client as clientSeedlink
 from obspy.clients.filesystem.sds import Client as clientArchive
 from obspy.clients.fdsn import Client as clientFDSN 
-import logging
 
+
+import logging
 logger=logging.getLogger('get_mseed')
 
 SECONDS_IN_DAY = 86400
@@ -36,8 +39,8 @@ def choose_service(server_parameter_dict):
                 logger.fatal(exception_message)
                 raise Exception(exception_message )
         else:
-            logger.fatal("ARCLINK DEPRECATED IN LATEST OBSPY VERSION")
-            raise Exception("ARCLINK DEPRECATED IN LATEST OBSPY VERSION")
+            logger.fatal("ARCLINK DEPRECATED IN LATEST OBSPY VERSION. !!USE FDSN OR ARCHIVE!!")
+            raise Exception("ARCLINK DEPRECATED IN LATEST OBSPY VERSION. !!USE FDSN OR ARCHIVE!!")
 
     elif server_parameter_dict['name'] == 'SEEDLINK':
         try:
@@ -49,9 +52,12 @@ def choose_service(server_parameter_dict):
             raise Exception( exception_message)
             
     elif server_parameter_dict['name'] == 'ARCHIVE':
+        
         try:
-            logger.info("Trying  Archive : %s " %(server_parameter_dict['archive_path']) )
-            return clientArchive(server_parameter_dict['archive_path'])
+            archive_path = Path(server_parameter_dict['archive_path'])
+            logger.info("Trying  Archive : %s " %(archive_path) )
+            return clientArchive(archive_path)
+
         except Exception as e:
             exception_message = "Error Archive : %s -- %s" %(str(e),server_parameter_dict['archive_path'])
             logger.fatal(exception_message)

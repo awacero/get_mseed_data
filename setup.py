@@ -6,7 +6,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
      name='get_mseed_data',  
-     version='0.3',
+     version='0.3.1',
      packages=['get_mseed_data'] ,
      author="Wilson Acero",
      author_email="acerowilson@gmail.com",
